@@ -1,0 +1,16 @@
+services:
+  - type: static
+    name: nexproducts-sales
+    env: static
+    buildCommand: npm run build
+    publishPath: dist
+    headers:
+      - path: /*
+        headers:
+          - key: Cache-Control
+            value: public, max-age=0, must-revalidate
+    rewrites:
+      - source: /user/*
+        destination: /user/index.html
+      - source: /*
+        destination: /index.html
