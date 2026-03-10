@@ -10,7 +10,7 @@ services:
           - key: Cache-Control
             value: public, max-age=0, must-revalidate
     rewrites:
-      - source: ./user/*
+      - source: /user/*
         destination: /user/index.html
-      - source: ./*
+      - source: /*
         destination: /index.html
