@@ -22,30 +22,16 @@ import {
 } from 'lucide-react';
 import html2canvas from 'html2canvas';
 
-// --- Default Data for BotClub ---
-const INITIAL_CATALOG = [
-    { id: 1, name: 'Physical models (x32 models)', category: 'Hardware', price: 5450.00, description: 'Comprehensive set of 32 physical learning models for hands-on activities.', paymentType: 'Subscription' },
-    { id: 2, name: 'Classroom presentation application', category: 'Software', price: 3000.00, description: 'Interactive software for classroom smart boards. (Monthly License)', paymentType: 'Subscription' },
-    { id: 3, name: 'Teacher pro dashboard', category: 'Software', price: 1500.00, description: 'Advanced analytics and class management tools for teachers. (Monthly License)', paymentType: 'Subscription' },
-    { id: 4, name: 'Principal pro dashboard', category: 'Software', price: 500.00, description: 'High-level oversight and reporting module for school administration. (Monthly License)', paymentType: 'Subscription' },
-    { id: 5, name: 'TV', category: 'Add-ons', price: 834.00, description: 'Display unit for classroom content.', paymentType: 'Subscription' },
-    { id: 6, name: 'Module for TV screens', category: 'Add-ons', price: 625.00, description: 'Hardware interface module to connect TV with learning system.', paymentType: 'Subscription' },
-    { id: 7, name: 'Tablet (with pre-installed software)', category: 'Add-ons', price: 625.00, description: 'Student tablet device pre-loaded with educational apps.', paymentType: 'Subscription' },
-    { id: 8, name: 'Storage racks', category: 'Add-ons', price: 625.00, description: 'Durable racks for organizing physical models and kits.', paymentType: 'Subscription' },
-];
+// --- Default Data for NexProducts ---
+const INITIAL_CATALOG = [];
 
 // --- Dependency Rules ---
-const DEPENDENCIES = {
-    3: { requiredId: 2, name: 'Classroom presentation application' },
-    6: { requiredId: 2, name: 'Classroom presentation application' },
-    7: { requiredId: 2, name: 'Classroom presentation application' },
-    8: { requiredId: 1, name: 'Physical models (x32 models)' },
-};
+const DEPENDENCIES = {};
 
 const INITIAL_COMPANY_INFO = {
     name: "BotClub Private Limited",
     address: "Wing-3, APIS, ITSEZ, Hill no-3, Rushikonda, Visakhapatnam, A.P - 530045",
-    email: "contact@botclub.in",
+    email: "nexproducts@botclub.in",
     phone: "+91 8919292103",
     gstin: "37AAGCB8306B1ZZ"
 };
@@ -102,64 +88,64 @@ const Toast = ({ message, onClose, type = 'error' }) => {
 export default function SimpleApp() {
     const [activeTab, setActiveTab] = useState('dashboard');
     const [catalog, setCatalog] = useState(() => {
-        const saved = localStorage.getItem('botclub_catalog');
+        const saved = localStorage.getItem('nexproducts_catalog');
         return saved ? JSON.parse(saved) : INITIAL_CATALOG;
     });
 
     const [subscriptionTerms, setSubscriptionTerms] = useState(() => {
-        const saved = localStorage.getItem('botclub_subscription_terms');
+        const saved = localStorage.getItem('nexproducts_subscription_terms');
         return saved || INITIAL_SUBSCRIPTION_TERMS;
     });
 
     const [defaultNotes, setDefaultNotes] = useState(() => {
-        const saved = localStorage.getItem('botclub_default_notes');
+        const saved = localStorage.getItem('nexproducts_default_notes');
         return saved || INITIAL_DEFAULT_NOTES;
     });
 
     const [docTitle, setDocTitle] = useState(() => {
-        const saved = localStorage.getItem('botclub_doc_title');
+        const saved = localStorage.getItem('nexproducts_doc_title');
         return saved || INITIAL_DOC_TITLE;
     });
 
     const [oneTimeTitle, setOneTimeTitle] = useState(() => {
-        const saved = localStorage.getItem('botclub_one_time_title');
+        const saved = localStorage.getItem('nexproducts_one_time_title');
         return saved || INITIAL_ONE_TIME_TITLE;
     });
 
     const [subscriptionTitle, setSubscriptionTitle] = useState(() => {
-        const saved = localStorage.getItem('botclub_subscription_title');
+        const saved = localStorage.getItem('nexproducts_subscription_title');
         return saved || INITIAL_SUBSCRIPTION_TITLE;
     });
 
 
 
     const [companyInfo, setCompanyInfo] = useState(() => {
-        const saved = localStorage.getItem('botclub_company_info');
+        const saved = localStorage.getItem('nexproducts_company_info');
         return saved ? JSON.parse(saved) : INITIAL_COMPANY_INFO;
     });
 
     // Listen for changes from the admin app
     React.useEffect(() => {
         const handleStorageChange = (e) => {
-            if (e.key === 'botclub_catalog' && e.newValue) {
+            if (e.key === 'nexproducts_catalog' && e.newValue) {
                 setCatalog(JSON.parse(e.newValue));
             }
-            if (e.key === 'botclub_subscription_terms' && e.newValue) {
+            if (e.key === 'nexproducts_subscription_terms' && e.newValue) {
                 setSubscriptionTerms(e.newValue);
             }
-            if (e.key === 'botclub_company_info' && e.newValue) {
+            if (e.key === 'nexproducts_company_info' && e.newValue) {
                 setCompanyInfo(JSON.parse(e.newValue));
             }
-            if (e.key === 'botclub_default_notes' && e.newValue) {
+            if (e.key === 'nexproducts_default_notes' && e.newValue) {
                 setDefaultNotes(e.newValue);
             }
-            if (e.key === 'botclub_doc_title' && e.newValue) {
+            if (e.key === 'nexproducts_doc_title' && e.newValue) {
                 setDocTitle(e.newValue);
             }
-            if (e.key === 'botclub_one_time_title' && e.newValue) {
+            if (e.key === 'nexproducts_one_time_title' && e.newValue) {
                 setOneTimeTitle(e.newValue);
             }
-            if (e.key === 'botclub_subscription_title' && e.newValue) {
+            if (e.key === 'nexproducts_subscription_title' && e.newValue) {
                 setSubscriptionTitle(e.newValue);
             }
 
@@ -175,16 +161,14 @@ export default function SimpleApp() {
     const [toast, setToast] = useState(null);
 
     // Current Quote State
-    const [customerName, setCustomerName] = useState('Sri Chaitanya School');
-    const [customerContact, setCustomerContact] = useState('Mr. Srinivas (Admin)');
-    const [customerPhone, setCustomerPhone] = useState('+91 98765 43210');
-    const [customerEmail, setCustomerEmail] = useState('admin@srichaitanya.edu');
-    const [customerAddress, setCustomerAddress] = useState('Visakhapatnam, Andhra Pradesh');
+    const [customerName, setCustomerName] = useState('');
+    const [customerPhone, setCustomerPhone] = useState('');
+    const [customerEmail, setCustomerEmail] = useState('');
+    const [customerAddress, setCustomerAddress] = useState('');
+
     const [quoteItems, setQuoteItems] = useState([]);
-    const [hardwareDiscount, setHardwareDiscount] = useState(0);
-    const [subscriptionDiscount, setSubscriptionDiscount] = useState(0);
+    const [generalDiscount, setGeneralDiscount] = useState(0);
     const [taxRate, setTaxRate] = useState(18);
-    const [sectionOrder, setSectionOrder] = useState(['hardware', 'subscription']);
 
     // Dependencies logic
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -281,25 +265,13 @@ export default function SimpleApp() {
 
         const discountAmount = Math.round(subtotal * (discountPercentage / 100));
         const taxableAmount = subtotal - discountAmount;
-        const taxAmount = Math.round(taxableAmount * (tax / 100));
-        const total = taxableAmount + taxAmount;
+        const total = taxableAmount;
 
-        return { subtotal, discountAmount, taxableAmount, taxAmount, total };
+        return { subtotal, discountAmount, taxableAmount, total };
+
     };
 
-    const oneTimeIds = quoteItems.filter(i => (i.paymentType || 'Subscription') === 'One-time Payment');
-    const subIds = quoteItems.filter(i => (i.paymentType || 'Subscription') === 'Subscription');
-
-    const oneTimeTotals = calculateTotals(oneTimeIds, hardwareDiscount);
-    const subTotals = calculateTotals(subIds, subscriptionDiscount);
-
-    const totals = {
-        subtotal: oneTimeTotals.subtotal + subTotals.subtotal,
-        discountAmount: oneTimeTotals.discountAmount + subTotals.discountAmount,
-        taxableAmount: oneTimeTotals.taxableAmount + subTotals.taxableAmount,
-        taxAmount: oneTimeTotals.taxAmount + subTotals.taxAmount,
-        total: oneTimeTotals.total + subTotals.total
-    };
+    const totals = calculateTotals(quoteItems, generalDiscount);
 
     const handleDownloadImage = async () => {
         const element = document.getElementById('quote-preview-content');
@@ -316,7 +288,7 @@ export default function SimpleApp() {
             const image = canvas.toDataURL("image/png");
             const link = document.createElement('a');
             link.href = image;
-            link.download = `BotClub_Quote_${customerName.replace(/\s+/g, '_')}_${Date.now()}.png`;
+            link.download = `NexProducts_Quote_${customerName.replace(/\s+/g, '_')}_${Date.now()}.png`;
             link.click();
             setToast({ message: "Quote saved as image!", type: 'success' });
         } catch (error) {
@@ -345,8 +317,8 @@ export default function SimpleApp() {
                 <div className="p-6 border-b border-slate-800 flex justify-between items-center">
                     <div>
                         <div className="flex items-center gap-2 text-white font-bold text-xl">
-                            <Briefcase className="w-6 h-6 text-blue-500" />
-                            <span>BotClub</span>
+                            <img src="/logo.png" alt="NexProducts" className="w-12 h-12 object-contain" />
+                            <span>NexProducts</span>
                         </div>
                         <p className="text-xs text-slate-500 mt-1">Sales Configurator</p>
                     </div>
@@ -375,14 +347,6 @@ export default function SimpleApp() {
                             <Users className="w-6 h-6" />
                             <span className="text-xs font-semibold">Client</span>
                         </button>
-                        <button
-                            onClick={() => setSectionOrder(prev => prev[0] === 'hardware' ? ['subscription', 'hardware'] : ['hardware', 'subscription'])}
-                            className="p-4 rounded-xl flex flex-col items-center justify-center gap-2 transition-all bg-white text-slate-400 hover:bg-slate-50 hover:text-slate-600 border border-slate-200"
-                            title="Toggle Section Order"
-                        >
-                            <ArrowDownUp className="w-6 h-6" />
-                            <span className="text-xs font-semibold">Order</span>
-                        </button>
                     </div>
                     <button
                         onClick={() => { setActiveTab('preview'); setIsMobileMenuOpen(false); }}
@@ -407,20 +371,11 @@ export default function SimpleApp() {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-medium text-slate-600 mb-2">School Name</label>
+                            <label className="block text-sm font-medium text-slate-600 mb-2">Customer Name</label>
                             <input
                                 type="text"
                                 value={customerName}
                                 onChange={(e) => setCustomerName(e.target.value)}
-                                className="w-full border border-slate-300 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-slate-600 mb-2">Contact Person</label>
-                            <input
-                                type="text"
-                                value={customerContact}
-                                onChange={(e) => setCustomerContact(e.target.value)}
                                 className="w-full border border-slate-300 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none"
                             />
                         </div>
@@ -491,9 +446,15 @@ export default function SimpleApp() {
                                         {product.name}
                                     </div>
                                     <div className="text-xs text-slate-400 mt-1 line-clamp-2 min-h-[2.5em]">{product.description}</div>
-                                    <div className="text-sm text-slate-500 flex justify-between w-full mt-2 pt-2 border-t border-slate-100">
-                                        <span className="bg-slate-100 px-2 py-0.5 rounded text-xs">{product.category}</span>
-                                        <span className="font-bold text-slate-700">{formatMoney(product.price)}</span>
+                                    <div className="text-sm text-slate-500 flex flex-col w-full mt-2 pt-2 border-t border-slate-100 gap-1">
+                                        <div className="flex justify-between w-full">
+                                            <span className="bg-slate-100 px-2 py-0.5 rounded text-xs">{product.category}</span>
+                                            <span className="font-bold text-slate-700">{formatMoney(product.price)}</span>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <span className="text-[10px] text-slate-400 bg-slate-50 px-1 rounded">Color: {product.color}</span>
+                                            <span className="text-[10px] text-slate-400 bg-slate-50 px-1 rounded">HSN: {product.hsnCode}</span>
+                                        </div>
                                     </div>
                                 </button>
                             );
@@ -513,8 +474,10 @@ export default function SimpleApp() {
                     ) : (
                         <div className="space-y-3">
                             <div className="grid grid-cols-12 gap-4 text-xs font-semibold text-slate-500 uppercase tracking-wider px-2">
-                                <div className="col-span-4">Item</div>
-                                <div className="col-span-2 text-center">Qty</div>
+                                <div className="col-span-3">Item</div>
+                                <div className="col-span-1 text-center">Color</div>
+                                <div className="col-span-1 text-center">HSN</div>
+                                <div className="col-span-1 text-center">Qty</div>
                                 <div className="col-span-2 text-right">Price</div>
                                 <div className="col-span-2 text-right">Disc %</div>
                                 <div className="col-span-2"></div>
@@ -531,7 +494,7 @@ export default function SimpleApp() {
                                     className={`grid grid-cols-12 gap-4 items-center bg-slate-50 p-2 rounded-lg border border-slate-100 transition-all ${draggedItemIndex === index ? 'opacity-50 ring-2 ring-blue-500 bg-blue-50' : ''
                                         }`}
                                 >
-                                    <div className="col-span-4 flex items-center gap-2">
+                                    <div className="col-span-3 flex items-center gap-2">
                                         <div className="cursor-grab active:cursor-grabbing text-slate-400 hover:text-blue-600">
                                             <GripVertical className="w-5 h-5" />
                                         </div>
@@ -540,7 +503,9 @@ export default function SimpleApp() {
                                             <div className="text-xs text-slate-500 truncate">{item.description}</div>
                                         </div>
                                     </div>
-                                    <div className="col-span-2">
+                                    <div className="col-span-1 text-center text-sm text-slate-700">{item.color}</div>
+                                    <div className="col-span-1 text-center text-sm text-slate-700">{item.hsnCode}</div>
+                                    <div className="col-span-1">
                                         <input
                                             type="number"
                                             min="1"
@@ -589,24 +554,12 @@ export default function SimpleApp() {
                             </div>
 
                             <div className="flex justify-between items-center text-slate-400">
-                                <span>Hardware Discount</span>
+                                <span>Discount</span>
                                 <div className="flex items-center w-20">
                                     <input
                                         type="number"
-                                        value={hardwareDiscount}
-                                        onChange={(e) => setHardwareDiscount(parseFloat(e.target.value) || 0)}
-                                        className="w-full bg-slate-800 border border-slate-700 rounded text-right px-2 py-1 text-white focus:ring-1 focus:ring-blue-500"
-                                    />
-                                    <span className="ml-1">%</span>
-                                </div>
-                            </div>
-                            <div className="flex justify-between items-center text-slate-400">
-                                <span>Subscription Discount</span>
-                                <div className="flex items-center w-20">
-                                    <input
-                                        type="number"
-                                        value={subscriptionDiscount}
-                                        onChange={(e) => setSubscriptionDiscount(parseFloat(e.target.value) || 0)}
+                                        value={generalDiscount}
+                                        onChange={(e) => setGeneralDiscount(parseFloat(e.target.value) || 0)}
                                         className="w-full bg-slate-800 border border-slate-700 rounded text-right px-2 py-1 text-white focus:ring-1 focus:ring-blue-500"
                                     />
                                     <span className="ml-1">%</span>
@@ -673,16 +626,31 @@ export default function SimpleApp() {
                 </div>
             </div>
 
-            <div id="quote-preview-content" className="bg-white shadow-lg p-8 min-h-[1000px] print:shadow-none print:p-0">
+            <div id="quote-preview-content" className="bg-white shadow-lg p-6 min-h-[1000px] print:shadow-none print:p-0">
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                  @media print {
+                    @page { margin: 5mm; }
+                    body { -webkit-print-color-adjust: exact; font-size: 12px; }
+                    h1 { font-size: 18px !important; margin-bottom: 4px !important; }
+                    h3 { font-size: 12px !important; margin-bottom: 2px !important; }
+                    .print-shrink { transform: scale(0.95); transform-origin: top center; }
+                  }
+                ` }} />
+
+
                 <div className="flex justify-between items-start border-b-2 border-slate-100 pb-4 mb-4">
                     <div>
-                        <div className="text-3xl font-bold text-blue-800">BotClub</div>
-                        <p className="text-slate-500 text-sm mt-1">Teaching & Learning Solutions</p>
+                        <img src="/logo.png" alt="NexProducts" className="h-12 w-auto mb-1" />
                     </div>
+
+
                     <div className="text-right">
-                        <h1 className="text-2xl font-bold text-slate-800 uppercase tracking-wider mb-2">{docTitle}</h1>
+                        <h1 className="text-xl font-bold text-slate-800 uppercase tracking-wider mb-1">{docTitle}</h1>
+
                         <div className="text-sm text-slate-600 max-w-[300px] ml-auto">
-                            <div className="font-bold text-lg text-slate-800 mb-1">{companyInfo.name}</div>
+                            <div className="font-bold text-base text-slate-800 mb-0.5">{companyInfo.name}</div>
+
                             <div className="whitespace-pre-wrap">{companyInfo.address}</div>
                             <div className="mt-2">
                                 <div>{companyInfo.email}</div>
@@ -693,12 +661,14 @@ export default function SimpleApp() {
                     </div>
                 </div>
 
-                <div className="flex justify-between mb-6">
+                <div className="flex justify-between mb-3">
+
+
                     <div className="w-1/2">
                         <h3 className="text-xs font-bold uppercase text-slate-400 tracking-wider mb-1">Quote For</h3>
-                        <div className="text-slate-800 font-semibold text-lg">{customerName}</div>
-                        <div className="text-slate-600 whitespace-pre-wrap mb-1">{customerAddress}</div>
-                        <div className="text-slate-600 mb-1">{customerContact}</div>
+                        <div className="text-slate-800 font-semibold text-base">{customerName}</div>
+
+                        {customerAddress && <div className="text-slate-600 whitespace-pre-wrap mb-1">{customerAddress}</div>}
                         {customerEmail && <div className="text-slate-500 text-sm">{customerEmail}</div>}
                         {customerPhone && <div className="text-slate-500 text-sm">{customerPhone}</div>}
                     </div>
@@ -714,32 +684,35 @@ export default function SimpleApp() {
                 </div>
 
                 {(() => {
-                    const oneTimeItems = quoteItems.filter(i => (i.paymentType || 'Subscription') === 'One-time Payment');
-                    const subscriptionItems = quoteItems.filter(i => (i.paymentType || 'Subscription') === 'Subscription');
+                    const totals = calculateTotals(quoteItems, generalDiscount);
 
-                    const oneTimeTotals = calculateTotals(oneTimeItems, hardwareDiscount);
-                    const subTotals = calculateTotals(subscriptionItems, subscriptionDiscount);
+                    return (
+                        <div className="mb-3">
 
-                    const renderSection = (title, items, sectionTotals, isSubscription, appliedDiscount) => (
-                        <div className="mb-6">
-                            <h3 className="font-bold text-slate-800 text-sm uppercase tracking-wider border-b-2 border-slate-800 pb-1 mb-2">{title}</h3>
-                            <table className="w-full mb-4">
+
+                            <h3 className="font-bold text-slate-800 text-sm uppercase tracking-wider border-b-2 border-slate-800 pb-1 mb-2">Order Details</h3>
+                            <table className="w-full mb-2">
+
                                 <thead>
                                     <tr className="border-b border-slate-200">
                                         <th className="text-left py-1 font-bold text-slate-600 w-1/2 text-xs">Description</th>
+                                        <th className="text-center py-1 font-bold text-slate-600 text-xs">Color</th>
+                                        <th className="text-center py-1 font-bold text-slate-600 text-xs">HSN</th>
                                         <th className="text-center py-1 font-bold text-slate-600 text-xs">Qty</th>
                                         <th className="text-right py-1 font-bold text-slate-600 text-xs">Unit Price</th>
                                         <th className="text-right py-1 font-bold text-slate-600 text-xs">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody className="text-sm">
-                                    {items.map((item) => (
+                                    {quoteItems.map((item) => (
                                         <tr key={item.uid} className="border-b border-slate-50">
                                             <td className="py-2 text-slate-700">
                                                 <div className="font-medium text-sm">{item.name}</div>
                                                 {item.description && <div className="text-xs text-slate-500">{item.description}</div>}
                                                 <div className="text-[10px] text-slate-400 mt-0.5 inline-block bg-slate-50 px-1 rounded">{item.category}</div>
                                             </td>
+                                            <td className="py-2 text-center text-slate-700 align-top pt-2">{item.color}</td>
+                                            <td className="py-2 text-center text-slate-700 align-top pt-2">{item.hsnCode}</td>
                                             <td className="py-2 text-center text-slate-700 align-top pt-2">{item.quantity}</td>
                                             <td className="py-2 text-right text-slate-700 align-top pt-2">
                                                 {item.discount > 0 ? (
@@ -759,79 +732,56 @@ export default function SimpleApp() {
                                 </tbody>
                             </table>
 
-                            <div className="flex flex-col items-end gap-1 text-sm text-slate-600">
+                            <div className="flex flex-col items-end gap-0.5 text-sm text-slate-600">
+
                                 <div className="flex justify-between w-64">
                                     <span>Subtotal:</span>
-                                    <span className="font-medium">{formatMoney(sectionTotals.subtotal)}</span>
+                                    <span className="font-medium">{formatMoney(totals.subtotal)}</span>
                                 </div>
-                                {appliedDiscount > 0 && (
+                                {totals.discountAmount > 0 && (
                                     <div className="flex justify-between w-64 text-green-600">
-                                        <span>Discount ({appliedDiscount}%):</span>
-                                        <span>-{formatMoney(sectionTotals.discountAmount)}</span>
+                                        <span>Discount ({generalDiscount}%):</span>
+                                        <span>-{formatMoney(totals.discountAmount)}</span>
                                     </div>
                                 )}
+
                                 <div className="w-64 border-t border-slate-300 my-1"></div>
 
-                                <div className="flex justify-between w-64 text-base font-bold text-slate-800">
-                                    <span>Taxable Amount:</span>
-                                    <span>{formatMoney(sectionTotals.taxableAmount)}</span>
+                                <div className="w-64 border-t border-slate-300 my-1"></div>
+                                <div className="flex justify-between w-64 text-lg font-bold text-slate-900 border-t-2 border-slate-800 pt-2 mt-1">
+                                    <span>Total Amount:</span>
+                                    <span>{formatMoney(totals.total)}</span>
                                 </div>
 
-                                {docTitle !== 'Proforma Invoice' && (
-                                    <>
-                                        <div className="flex justify-between w-64">
-                                            <span>GST ({taxRate}%):</span>
-                                            <span className="font-medium">{formatMoney(sectionTotals.taxAmount)}</span>
-                                        </div>
-                                        <div className="flex justify-between w-64 text-lg font-bold text-slate-900 border-t-2 border-slate-800 pt-2 mt-1">
-                                            <span>Total {isSubscription ? '(Monthly)' : '(One-time)'}:</span>
-                                            <span>{formatMoney(sectionTotals.total)}</span>
-                                        </div>
-                                    </>
-                                )}
+
 
                                 <div className="w-64 text-right text-xs text-slate-700 mt-1 font-bold">
-                                    Rupees {numberToWords(docTitle === 'Proforma Invoice' ? sectionTotals.taxableAmount : sectionTotals.total)} Only
+                                    Rupees {numberToWords(totals.total)} Only
                                 </div>
-                                {isSubscription && (
-                                    <div className="w-64 text-right text-xs text-slate-500">
-                                        * Includes monthly subscription items
-                                    </div>
-                                )}
+
+                                <div className="w-64 text-right text-xs text-red-600 mt-2 font-medium italic leading-tight">
+                                    *The unit price mentioned above is inclusive of 5% GST.
+                                </div>
+
+
                             </div>
+
+
                         </div>
-                    );
-
-                    return (
-                        <>
-                            {sectionOrder.map(section => {
-                                if (section === 'hardware' && oneTimeItems.length > 0) {
-                                    return renderSection(oneTimeTitle, oneTimeItems, oneTimeTotals, false, hardwareDiscount);
-                                }
-                                if (section === 'subscription' && subscriptionItems.length > 0) {
-                                    return renderSection(subscriptionTitle, subscriptionItems, subTotals, true, subscriptionDiscount);
-                                }
-                                return null;
-                            })}
-
-                            {docTitle === 'Proforma Invoice' && (
-                                <div className="mt-4 text-left">
-                                    <p className="text-red-600 font-bold text-xs">
-                                        * GST @18% will be applicable as per government norms and added in the final invoice
-                                    </p>
-                                </div>
-                            )}
-                        </>
                     );
                 })()}
 
-                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+
+
+                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+
                         <h4 className="font-bold text-slate-800 text-sm mb-2 flex items-center gap-2">
                             <Landmark className="w-4 h-4 text-blue-600" />
                             Bank Details
                         </h4>
-                        <div className="text-sm space-y-2">
+                        <div className="text-xs space-y-1">
+
                             <div className="font-bold text-slate-800 tracking-wide text-sm border-b border-slate-200 pb-1">BOTCLUB PRIVATE LIMITED</div>
                             <div className="grid grid-cols-[70px_1fr] gap-y-1 gap-x-4 text-slate-600">
                                 <span className="font-medium text-slate-500">Bank</span>
@@ -854,7 +804,9 @@ export default function SimpleApp() {
                 </div>
 
                 {quoteItems.some(item => item.paymentType === 'Subscription') && (
-                    <div className="mt-8">
+                    <div className="mt-2">
+
+
                         <h4 className="font-bold text-slate-800 text-sm mb-2 flex items-center gap-2">
                             <Clock className="w-4 h-4 text-blue-600" />
                             Subscription Terms
@@ -865,13 +817,16 @@ export default function SimpleApp() {
                     </div>
                 )}
 
-                <div className="mt-8 pt-8 border-t border-slate-100">
+                <div className="mt-3 pt-3 border-t border-slate-100">
+
+
                     <h4 className="font-bold text-slate-800 text-sm mb-2">Terms & Notes</h4>
                     <textarea
-                        className="w-full text-sm text-slate-600 border-none resize-none focus:ring-0 bg-transparent h-24"
+                        className="w-full text-xs text-slate-600 border-none resize-none focus:ring-0 bg-transparent h-16"
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
                     />
+
                 </div>
             </div>
         </div>
